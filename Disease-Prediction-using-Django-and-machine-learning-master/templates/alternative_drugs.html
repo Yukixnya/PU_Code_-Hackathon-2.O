@@ -1,0 +1,77 @@
+{% extends "basic.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-2 mb-3">
+    <center><h2>Find Alternative Drugs</h2></center><br>
+
+    <form method="POST" id="drugForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="drug_name">Enter Drug Name:</label>
+            <input type="text" class="form-control" id="drug_name" name="drug_name" placeholder="Enter drug name">
+        </div>
+        <button type="submit" class="btn btn-primary">Find Alternatives</button>
+    </form>
+
+    <br>
+    <div id="result">
+        <h4>Alternatives:</h4>
+        <ul id="alternativesList"></ul>
+    </div>
+</div>
+
+<script>
+    document.getElementById('drugForm').onsubmit = function(event) {
+        event.preventDefault();
+
+        // Capture the drug name entered in the form
+        const drugName = document.getElementById('drug_name').value;
+
+        // Check if drug name is empty
+        if (!drugName) {
+            alert("Please enter a drug name.");
+            return;
+        }
+
+        fetch("{% url 'alternative_drugs' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('input[name=csrfmiddlewaretoken]').value,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ drug_name: drugName })
+        })
+        .then(response => {
+            // Check if response is ok (status 200)
+            if (!response.ok) {
+                throw new Error('Failed to fetch alternatives');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const list = document.getElementById('alternativesList');
+            list.innerHTML = ''; // Clear previous results
+
+            if (data.alternatives) {
+                // Add alternatives to the list
+                data.alternatives.forEach(alt => {
+                    const li = document.createElement('li');
+                    li.textContent = alt;
+                    list.appendChild(li);
+                });
+            } else if (data.error) {
+                // Handle errors
+                const li = document.createElement('li');
+                li.textContent = data.error;
+                list.appendChild(li);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error fetching alternatives. Please try again later.');
+        });
+    };
+</script>
+
+{% endblock %}

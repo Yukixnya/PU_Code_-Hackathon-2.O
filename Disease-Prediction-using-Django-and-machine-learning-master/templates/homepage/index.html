@@ -1,0 +1,593 @@
+﻿{% extends "basic.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #343a40;
+    transition: background-color 0.3s;
+  }
+  .btn-primary{
+    background-color: rgb(255, 98, 0);
+    border: 1px solid rgb(255, 98, 0);
+    color: white;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: rgb(252, 167, 113);
+    border-color: rgb(252, 167, 113);
+    transition: all 0.3s ease;
+  }
+
+  .img:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+  }
+  /* .card{
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  } */
+
+  .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0);
+    transition: box-shadow 0.2s;
+  }
+
+  .card-title {
+    font-weight: bold;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  .modal-content {
+    border-radius: 10px;
+  }
+
+  .modal-header, .modal-footer {
+    border: none;
+  }
+
+  .modal-body {
+    padding: 2rem;
+  }
+
+         /* Footer Styling */
+         .footer {
+            background-color: rgb(0, 0, 0,0.9);
+            color: rgba(255, 255, 255, 0.534);
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .footer h5 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer ul li a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.534);
+            transition: color 0.3s;
+        }
+
+        .footer ul li a:hover {
+            color: rgb(255, 98, 0);
+        }
+
+        .footer .social-icons a {
+            font-size: 18px;
+            margin: 0 10px;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .footer .social-icons a:hover {
+            color: #f8f9fa;
+        }
+        .jumbotron{
+            background-size: cover;
+            background-position: center;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            margin: 0; /* Remove top margin */
+            padding: 100px 0; /* Keep vertical padding */
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeInSlide {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px); /* Slide down from above */
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0); /* End at original position */
+        }
+    }
+
+    .jumbotron h1 {
+      margin-left: 30px;
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        animation: fadeInSlide 1s ease-in;
+    }
+
+    @keyframes fadeInSlideRight {
+        0% {
+            opacity: 0;
+            transform: translateX(-100px); /* Slide in from the left */
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0); /* End at original position */
+        }
+    }
+
+    .jumbotron p {
+      margin-left: 30px;
+        color: #ffffff;
+        animation: fadeInSlideRight 1s ease-in;
+    }
+    .containerm {
+  color: #ffffff;
+  background-color: rgb(0, 0, 0,0.5);
+}
+.containerm .row {
+  justify-content: center; /* Center align items in the row */
+  gap: 10rem; /* Add horizontal spacing between columns */
+}
+
+.containerm .col {
+  display: flex;
+  flex-direction: column; /* Keep items stacked vertically */
+  align-items: center; /* Center align content within the column */
+  text-align: center; /* Ensure text aligns properly */
+}
+
+  /* Modal content background */
+  .modal-content {
+    background-color: rgba(255, 251, 251, 0.9); /* Dark semi-transparent background */
+    border-radius: 10px;
+  }
+
+
+  /* Modal backdrop */
+  .modal-backdrop.show {
+    background-color: rgba(255, 255, 255, 0.7); /* Darken the area behind the modal */
+  }
+
+  .features {
+    margin-top: 25px;
+    color: #ffffff;
+    background-color: rgb(0, 0, 0,0.5);
+  }
+
+  .features .row {
+  justify-content: center; /* Center align items in the row */
+  gap: 5rem; /* Add horizontal spacing between columns */
+}
+
+.features .col {
+  display: flex;
+  flex-direction: column; /* Keep items stacked vertically */
+  align-items: center; /* Center align content within the column */
+  text-align: center; /* Ensure text aligns properly */
+}
+
+.Specialists {
+  color: #ffffff;
+  background-color: rgb(0, 0, 0,0.5);
+}
+
+.Specialists .card-body{
+  color: #000000;
+}
+
+/* Set the container to overflow-hidden to create a sliding effect */
+.Specialists .row {
+  display: flex;
+  overflow: hidden; /* Hide elements that are not in the visible area */
+}
+
+/* Create the sliding animation */
+@keyframes slide-left-to-right {
+  0% {
+    transform: translateX(100%); /* Start from the right */
+  }
+  100% {
+    transform: translateX(-100%); /* End at the left */
+  }
+}
+
+/* Apply the animation to the row */
+.Specialists .row {
+  animation: slide-left-to-right 17s linear infinite; /* Slide left to right infinitely */
+}
+
+/* Optional: Add some spacing between columns */
+.Specialists .col {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4">Your Personal Healthcare Assistant</h1>
+    <p class="lead">
+      The AI Personal Healthcare Assistant provides personalized diagnoses, drug information, and pharmacy locations with stock updates. Users can upload medical histories for tailored health insights, all while ensuring HIPAA and GDPR compliance for security.    
+                
+  
+     {% if user.is_authenticated %}
+
+     
+     {% else %}
+
+      <p class="lead">
+      <button type="button" class="btn btn-primary btn-lg"  data-toggle="modal" data-target=".bd-example-modal-lg">Get started</button>
+      </p>
+    
+
+</div>
+
+<br>
+
+<div class="containerm">
+  <br><br>
+  <div class="container mt-5 mb-3" style="width:fit-content;">
+    <center>
+      <h1>Sign-In As</h1>
+    </center>
+    <hr style="border: 1px solid rgb(255, 250, 250); width: 50%;">
+    <form>
+      <div class="container mt-5 mb-5">
+        <div class="row">
+          <!-- Admin Section -->
+          <div class="col text-center">
+            <a href="{% url 'sign_in_admin' %}" style="text-decoration: none; color: inherit;">
+              <i class="fas fa-user-shield" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+              <br>
+              <span style="font-size: 20px; font-weight: bold;">Admin</span>
+            </a>
+          </div>
+
+          <!-- Doctor Section -->
+          <div class="col text-center">
+            <a href="{% url 'sign_in_doctor' %}" style="text-decoration: none; color: inherit;">
+              <i class="fas fa-user-md" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+              <br>
+              <span style="font-size: 20px; font-weight: bold;">Doctor</span>
+            </a>
+          </div>
+
+          <!-- Patient Section -->
+          <div class="col text-center">
+            <a href="{% url 'sign_in_patient' %}" style="text-decoration: none; color: inherit;">
+              <i class="fas fa-user-injured" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+              <br>
+              <span style="font-size: 20px; font-weight: bold;">Patient</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <br><br>
+</div>
+
+
+
+{% endif %}
+
+   
+
+<div class="features">
+  <br>
+  <div class="container mt-5 mb-3" style="width: fit-content;">
+    <center>
+      <h1>Features</h1>
+    </center>
+    <hr style="border: 1px solid rgb(255, 250, 250); width: 50%;">
+    <form>
+      <div class="container mt-5 mb-5">
+        <!-- Row to display features side by side -->
+        <div class="row justify-content-center">
+          
+<!-- Feature 1: Check Disease -->
+<div class="col-md-4 text-center">
+  <i class="fas fa-virus" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+  <br>
+  <span style="font-size: 20px; font-weight: bold;">Check Disease</span>
+</div>
+
+<!-- Feature 2: Alternative Drugs -->
+<div class="col-md-4 text-center">
+  <i class="fas fa-pills" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+  <br>
+  <span style="font-size: 20px; font-weight: bold;">Alternative Drugs</span>
+</div>
+
+<!-- Feature 3: Nearby Pharmacy -->
+<div class="col-md-4 text-center">
+  <i class="fas fa-map-marker-alt" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+  <br>
+  <span style="font-size: 20px; font-weight: bold;">Nearby Pharmacy</span>
+</div>
+
+<!-- Feature 4: High Accuracy -->
+<div class="col-md-4 text-center">
+  <i class="fas fa-bullseye" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+  <br>
+  <span style="font-size: 20px; font-weight: bold;">High Accuracy</span>
+</div>
+
+<!-- Feature 5: Good Performance -->
+<div class="col-md-4 text-center">
+  <i class="fas fa-tachometer-alt" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+  <br>
+  <span style="font-size: 20px; font-weight: bold;">Good Performance</span>
+</div>
+
+<!-- Feature 6: Bot Assistant -->
+<div class="col-md-4 text-center">
+  <i class="fas fa-robot" style="font-size: 30px; color: rgb(255, 98, 0);"></i>
+  <br>
+  <span style="font-size: 20px; font-weight: bold;">Bot Assistant</span>
+</div>
+
+
+
+        </div> <!-- End of Row -->
+      </div>
+    </form>
+  </div>
+  <br>
+</div>
+
+
+
+
+<!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+   
+<center>
+  <h1>Sign-In  As</h1>
+  </center>
+<br><br>
+
+<center>
+  <form>
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <!-- Admin Section -->
+        <div class="col text-center">
+          <a href="{% url 'sign_in_admin' %}" style="text-decoration: none; color: inherit;">
+            <i class="fas fa-user-shield" style="font-size: 90px; color: red"></i>
+            <br>
+            <span style="font-size: 20px; font-weight: bold;">Admin</span>
+          </a>
+        </div>
+
+        <!-- Doctor Section -->
+        <div class="col text-center">
+          <a href="{% url 'sign_in_doctor' %}" style="text-decoration: none; color: inherit;">
+            <i class="fas fa-user-md" style="font-size: 90px; color: green;"></i>
+            <br>
+            <span style="font-size: 20px; font-weight: bold;">Doctor</span>
+          </a>
+        </div>
+
+        <!-- Patient Section -->
+        <div class="col text-center">
+          <a href="{% url 'sign_in_patient' %}" style="text-decoration: none; color: inherit;">
+            <i class="fas fa-user-injured" style="font-size: 90px; color: blue"></i>
+            <br>
+            <span style="font-size: 20px; font-weight: bold;">Patient</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </form>
+</center>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- Large modal -->
+
+<div class="modal fade bd-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+   
+<center>
+  <h1>Sign-Up  As</h1>
+  </center>
+<br><br>
+
+<center>
+  <form>
+    <div class="container mt-5 mb-5">
+      <div class="row">
+        <!-- Doctor Section -->
+        <div class="col text-center">
+          <a href="{% url 'sign_in_doctor' %}" style="text-decoration: none; color: inherit;">
+            <i class="fas fa-user-md" style="font-size: 90px; color: green;"></i>
+            <br>
+            <span style="font-size: 20px; font-weight: bold;">Doctor</span>
+          </a>
+        </div>
+
+        <!-- Patient Section -->
+        <div class="col text-center">
+          <a href="{% url 'sign_in_patient' %}" style="text-decoration: none; color: inherit;">
+            <i class="fas fa-user-injured" style="font-size: 90px; color: blue"></i>
+            <br>
+            <span style="font-size: 20px; font-weight: bold;">Patient</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </form>
+</center>
+
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div class="Specialists">
+  <br>
+  <center><h2>Our Specialists</h2></center>
+<hr style="border: 1px solid rgb(255, 250, 250); width: 50%;">
+<div class="row mt-5 mb-5">
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Dr. MANISH BANSAL </h5>
+                <img alt="admin" src="{% static 'homepage/doctor.png' %}" width="200" height="150" class="rounded">
+                <p class="card-text">H.No-1283, Ward No-14, Mandi Road, Distt. Yamuna Nagar - 135133, (Haryana).</p>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Dr. BANSAL JATINDER PAUL </h5>
+                <img alt="admin" src="{% static 'homepage/doctor.png' %}" width="200" height="150" class="rounded">
+                <p class="card-text">Om Niwas Khai Basti, Lehragaga-148031, Distt. Sangrur, Punjab.</p>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">DR. RADHIKA SWAROOP</h5>
+                <img alt="admin" src="{% static 'homepage/doctor.png' %}" width="200" height="150" class="rounded">
+                <p class="card-text">Swaroop Hospital, 1, Hawa Sarak, Civil Lines, District Jaipur, Rajasthan - 302 019, India</p>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col">
+      <div class="card">
+          <div class="card-body text-center">
+              <h5 class="card-title">DR. ARNAV SWAROOP</h5>
+              <img alt="admin" src="{% static 'homepage/doctor.png' %}" width="200" height="150" class="rounded">
+              <p class="card-text">Swaroop General Hospital, 12, Shanti Path, Civil Lines, District Jaipur, Rajasthan - 302021, India.</p>
+              
+          </div>
+      </div>
+  </div>
+</div>
+  
+
+<br>
+</div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-4">
+      <div class="container">
+          <div class="row">
+              <!-- About Section -->
+              <div class="col-md-4">
+                  <h5>About Us</h5>
+                  <p>
+                      FirstCall is committed to providing exceptional healthcare solutions, ensuring the best
+                      experience for patients and doctors alike.
+                  </p>
+              </div>
+  
+              <!-- Quick Links Section -->
+              <div class="col-md-4">
+                  <h5>Quick Links</h5>
+                  <ul class="list-unstyled">
+                      <li><a href="{% url 'home' %}">Home</a></li>
+                      <li><a href="#">About Us</a></li>
+                      <li><a href="#">Contact</a></li>
+                      <li><a href="#">Privacy Policy</a></li>
+                  </ul>
+              </div>
+  
+              <!-- Contact Section -->
+              <div class="col-md-4">
+                  <h5>Contact Us</h5>
+                  <p><i class="fas fa-map-marker-alt"></i> 123 Healthcare Street, City, Country</p>
+                  <p><i class="fas fa-phone"></i> +1 123 456 7890</p>
+                  <p><i class="fas fa-envelope"></i> support@firstcall.com</p>
+              </div>
+          </div>
+  
+          <div class="row mt-3">
+              <div class="col text-center">
+                  <!-- Social Media Icons -->
+                  <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="text-white mx-2"><i class="fab fa-linkedin"></i></a>
+              </div>
+          </div>
+  
+          <div class="row mt-3">
+              <div class="col text-center">
+                  <small>&copy; 2025 FirstCall. All rights reserved.</small>
+              </div>
+          </div>
+      </div>
+  </footer>
+  </div>
+
+  
+ 
+
+
+
+
+
+</div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  
+{% endblock %}

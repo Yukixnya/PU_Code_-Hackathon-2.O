@@ -1,0 +1,204 @@
+{% extends "basic.html" %}
+{% load static %}
+
+{% block head %}
+<style>
+    body {
+        background-color: #f8f9fa; /* Light background for better contrast */
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: 0.3s;
+        border-radius: 10px; /* Rounded corners for cards */
+    }
+
+    .card-body{
+      color: #000000;
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+        padding: 20px; /* Increased padding for better spacing */
+    }
+
+    #links, .btn {
+        width: 100%; /* Full width for buttons */
+        margin: 10px 0; /* Consistent margin */
+        background-color: #1b405a; /* Primary button color */
+        color: #ffffff; /* White text */
+        border: none; /* Remove border */
+        font-weight: bold;
+        padding: 10px; /* Increased padding */
+        border-radius: 5px; /* Rounded corners */
+        transition: all 0.3s ease;
+    }
+
+    #links:hover, .btn:hover {
+        background-color: #f8f9fa; /* Light background on hover */
+        color: #1b405a; /* Dark text on hover */
+        transform: scale(1.05);
+    }
+
+    .modal-xl {
+        max-width: 90%;
+    }
+
+    .modal-header {
+        background-color: #1b405a; /* Dark header */
+        color: white;
+    }
+
+    .modal-footer {
+        background-color: #f8f9fa; /* Light footer */
+    }
+
+    .modal-footer button {
+        background-color: #1b405a; /* Dark button */
+        color: white;
+    }
+
+    .modal-footer button:hover {
+        background-color: #f8f9fa; /* Light on hover */
+        color: #1b405a; /* Dark text on hover */
+    }
+
+    .col {
+        background-color: rgba(255, 255, 255, 0.9); /* Light background for columns */
+        border-radius: 10px; /* Rounded corners */
+        padding: 20px; /* Padding inside columns */
+        margin: 10px; /* Margin between columns */
+    }
+
+    .tools-section {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: 0.3s;
+        border-radius: 10px; /* Rounded corners for cards */
+        background-color: rgba(0, 0, 0, 0.2); /* Light black background for tools */
+        border-radius: 10px; /* Rounded corners */
+        padding: 20px; /* Padding for the tools section */
+        margin-top: 0px; /* Space above the tools section */
+    }
+
+    h1, h3 {
+        color: #1b405a; /* Consistent heading color */
+    }
+
+    .tool-icon {
+        margin-right: 8px; /* Space between icon and text */
+        color: #1b405a; /* Icon color */
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container mt-2 mb-3">
+    <center>
+      <h1 style="font-weight: bold;">
+        <i class="fas fa-user-md tool-icon"></i> Patient Profile
+    </h1>
+    </center>
+    <br>
+
+    <div class="row">
+      <div class="col-md-6"> <!-- Adjusted column size for better layout -->
+        <div class="card" style="background-color: rgba(0, 0, 0, 0.2);"> <!-- Light black background -->
+            <img class="card-img-top" src="{% static 'homepage/patient.png' %}" alt="Patient Image" style="width:200px; border-top-left-radius: 10px; border-top-right-radius: 10px;">
+            <div class="card-body">
+                <h4 class="card-title">Patient Name: {{ puser.patient.name }}</h4>
+                <p class="card-text">Patient ID: {{ puser.patient.user_id }}</p>
+                <p class="card-text">Patient Email: {{ puser.email }}</p>
+                <a href="{% url 'pviewprofile' puser.username %}" class="btn btn-primary">View Profile</a>
+            </div>
+        </div>
+    </div>
+
+        <div class="col-md-6">
+            <div class="tools-section"> <!-- Added div for tools section -->
+              <h3 style="font-weight: bold;">
+                <i class="fas fa-tools tool-icon"></i> Tools
+            </h3>
+                <div class="row">
+                    <a id="links" class="btn" href="{% url 'checkdisease' %}">
+                        <i class="fas fa-stethoscope tool-icon"></i> Check Disease
+                    </a>
+                </div>
+                <div class="row">
+                    <a class="btn" href="{% url 'pconsultation_history' %}">
+                        <i class="fas fa-history tool-icon"></i> View Consultation History
+                    </a>
+                </div>
+                <div class="row">
+                    <button class="btn" data-toggle="modal" data-target="#myModal-feedback">
+                        <i class="fas fa-comment-dots tool-icon"></i> Give Feedback
+                    </button>
+                </div>
+                <div class="row">
+                    <a class="btn" href="{% url 'alternative_drugs' %}">
+                        <i class="fas fa-pills tool-icon"></i> Alternative Drugs
+                    </a>
+                </div>
+                <div class="row">
+                  <a class="btn" href="{% url 'alternative_drugs' %}">
+                      <i class="fas fa-map-marker-alt tool-icon"></i> Nearby Pharmacists
+                  </a>
+              </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal-feedback">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Feedback</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="post_feedback" method="POST">   
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="comment">Your Feedback:</label>
+                            <textarea class="form-control" rows="5" id="feedback" name="feedback" required></textarea>
+                        </div>
+                </div>
+                
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button id="submit" type="submit" class="btn btn-success" data-dismiss="modal" style="color: white;">Submit</button>
+                </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#submit').click(function(event) {
+            $.ajax({
+                url: "{% url 'post_feedback' %}",
+                type: "POST",
+                data: {
+                    feedback: $('#feedback').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success: function(data) {
+                    alert(data);
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

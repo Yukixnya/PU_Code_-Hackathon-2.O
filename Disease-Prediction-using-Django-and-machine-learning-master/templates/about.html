@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #e9ecef;
+            color: #343a40;
+            transition: background-color 0.3s;
+        }
+        header {
+            background-color: #6c757d;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            animation: fadeIn 1s ease-in;
+        }
+        section {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 0.5s forwards;
+        }
+        section h2 {
+            color: #007BFF;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        section p {
+            margin: 0 0 15px;
+            font-size: 1.1em;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #343a40;
+            color: white;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>About Us</h1>
+    </header>
+    <section>
+        <h2>Who We Are</h2>
+        <p>
+            At <strong>Your Platform Name</strong>, we are dedicated to revolutionizing healthcare accessibility through innovative technology. 
+            Our AI-driven Personal Healthcare Assistant empowers individuals with personalized, accurate, and timely healthcare insights.
+        </p>
+        <h2>What We Do</h2>
+        <p>
+            We offer features such as symptom-based diagnosis, detailed drug information, alternative medication suggestions, and real-time 
+            pharmacy stock updates. By integrating advanced AI models and secure data handling, we deliver reliable health predictions and 
+            preventive care recommendations tailored to individual needs.
+        </p>
+        <h2>Our Commitment</h2>
+        <p>
+            We are committed to privacy and transparency, ensuring compliance with global standards like HIPAA and GDPR to safeguard your sensitive 
+            health information. Our mission is to make healthcare simple, secure, and accessible for all, prioritizing your well-being in every step.
+        </p>
+    </section>
+    <footer>
+        &copy; 2025 Your Platform Name. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                section.style.animationDelay = `${index * 0.2}s`;
+            });
+        });
+    </script>
+</body>
+</html>
