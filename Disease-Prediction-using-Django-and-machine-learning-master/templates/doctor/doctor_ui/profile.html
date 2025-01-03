@@ -3,7 +3,74 @@
 
  
     {% block head %}
-    
+    <style>
+              /* Footer Styling */
+              .footer {
+            background-color: rgb(0, 0, 0, 0.8);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 40px 20px;
+            text-align: left;
+        }
+        .footer h5 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        .footer ul li a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s;
+        }
+        .footer ul li a:hover {
+            color: rgb(255, 98, 0);
+        }
+        .footer .social-icons a {
+            font-size: 18px;
+            margin: 0 10px;
+            color: white;
+            transition: color 0.3s;
+        }
+        .footer .social-icons a:hover {
+            color: #f8f9fa;
+        }
+
+        .footer .btn{
+            background-color: #1b405a; /* Primary button color */
+            color: #ffffff; /* White text */
+            border: none; /* Remove border */
+            font-weight: bold;
+            padding: 10px; /* Increased padding */
+            border-radius: 5px; /* Rounded corners */
+            transition: all 0.3s ease;
+        }
+        .footer .btn:hover {
+            background-color: #f8f9fa; /* Light background on hover */
+            color: #1b405a; /* Dark text on hover */
+            transform: scale(1.05);
+        }
+        .btn-block{
+          width: 100%; /* Full width for buttons */
+        margin: 10px 0; /* Consistent margin */
+        background-color: #1b405a; /* Primary button color */
+        color: #ffffff; /* White text */
+        border: none; /* Remove border */
+        font-weight: bold;
+        padding: 10px; /* Increased padding */
+        border-radius: 5px; /* Rounded corners */
+        transition: all 0.3s ease;
+        }
+        .btn-block:hover {
+          background-color: #f8f9fa; /* Light background on hover */
+        color: #1b405a; /* Dark text on hover */
+        transform: scale(1.05);
+        }
+    </style>
 {% endblock %}
 
 
@@ -15,7 +82,7 @@
 
 <br>
 <div class="container mt-3 mb-3">
-<center><h2>Doctor Profile</h2>
+<center><h2 style="font-weight: bold; color: #1b405a;">Doctor Profile</h2>
 </center><br>
 
 
@@ -24,7 +91,7 @@
     <div class="row">
         <div class="col" >
 
-            <div class="card" style="width:350px">
+            <div class="card" style="width:350px;color: black;">
                 <img class="card-img-top" src="{% static 'homepage/doctor.png' %}" alt="Card image" style="width:100%;">
                 <div class="card-body">
                   <h4 class="card-title">Doctor name : {{user.doctor.name}}</h4>
@@ -40,7 +107,7 @@
         <div class="col" >
              
             <div class="row">
-             <a class="btn btn-outline-info btn-block" href="{% url 'dconsultation_history' %}">view consulation history</a><br>
+             <a class="btn btn-outline-info btn-block" href="{% url 'dconsultation_history' %}"><i class="fas fa-history tool-icon"></i>view consulation history</a><br>
              </div>
 
 
@@ -84,6 +151,54 @@
     
             </div>
         </div>
+
+        <br>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-4">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4">
+                  <h5>About Us</h5>
+                  <p>
+                      FirstCall is committed to providing exceptional healthcare solutions, ensuring the best
+                      experience for patients and doctors alike.
+                  </p>
+              </div>
+              <div class="col-md-4">
+                  <h5>Quick Links</h5>
+                  <ul class="list-unstyled">
+                      <li><a href="{% url 'home' %}">Home</a></li>
+                      <li><a href="{% url 'about' %}">About Us</a></li>
+                      <li><a href="#">Contact</a></li>
+                      <li><a href="#">Privacy Policy</a></li>
+                  </ul>
+              </div>
+              <div class="col-md-4">
+                  <h5>Contact Us</h5>
+                  <p><i class="fas fa-map-marker-alt"></i> 123 Healthcare Street, City, Country</p>
+                  <p><i class="fas fa-phone"></i> +1 123 456 7890</p>
+                  <p><i class="fas fa-envelope"></i> support@firstcall.com</p>
+                  <button class="btn" data-toggle="modal" data-target="#myModal-feedback">
+                      <i class="fas fa-comment-dots"></i> Give Feedback
+                  </button>
+              </div>
+          </div>
+          <div class="row mt-3">
+              <div class="col text-center">
+                  <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="text-white mx-2"><i class="fab fa-linkedin"></i></a>
+              </div>
+          </div>
+          <div class="row mt-3">
+              <div class="col text-center">
+                  <small>&copy; 2025 FirstCall. All rights reserved.</small>
+              </div>
+          </div>
+      </div>
+  </footer>
     
     <script>
     

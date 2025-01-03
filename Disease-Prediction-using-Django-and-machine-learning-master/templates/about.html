@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+{% extends "basic.html" %}
+{% load static %}
+
+{% block head %}
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,8 +13,8 @@
             transition: background-color 0.3s;
         }
         header {
-            background-color: #6c757d;
-            color: white;
+            background-color: hwb(0 100% 0% / 0.247);
+            color: #1b405a;
             padding: 20px 10px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -30,10 +28,11 @@
         }
         section {
             padding: 20px;
-            max-width: 800px;
+            /* max-width: 800px; */
+            margin: 5px;
             margin: 20px auto;
-            background: white;
-            border-radius: 12px;
+            background: rgb(0, 0, 0, 0.2);
+            /* border-radius: 12px; */
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             opacity: 0;
             transform: translateY(20px);
@@ -41,27 +40,66 @@
         }
         section h2 {
             color: #007BFF;
-            font-size: 1.8em;
+            font-size: 2rem;
             margin-bottom: 10px;
+            font-weight: bold;
+            text-decoration: underline;
         }
         section p {
             margin: 0 0 15px;
             font-size: 1.1em;
+            color: rgba(0, 0, 0,);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
         }
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #343a40;
-            color: white;
-            margin-top: 20px;
-            font-size: 0.9em;
+        /* Footer Styling */
+        .footer {
+            background-color: rgb(0, 0, 0, 0.9);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 40px 20px;
+            text-align: left;
         }
-        footer a {
-            color: #007BFF;
+        .footer h5 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        .footer ul li a {
             text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 0.3s;
         }
-        footer a:hover {
-            text-decoration: underline;
+        .footer ul li a:hover {
+            color: rgb(255, 98, 0);
+        }
+        .footer .social-icons a {
+            font-size: 18px;
+            margin: 0 10px;
+            color: white;
+            transition: color 0.3s;
+        }
+        .footer .social-icons a:hover {
+            color: #f8f9fa;
+        }
+
+        .footer .btn{
+            background-color: #1b405a; /* Primary button color */
+            color: #ffffff; /* White text */
+            border: none; /* Remove border */
+            font-weight: bold;
+            padding: 10px; /* Increased padding */
+            border-radius: 5px; /* Rounded corners */
+            transition: all 0.3s ease;
+        }
+        .footer .btn:hover {
+            background-color: #f8f9fa; /* Light background on hover */
+            color: #1b405a; /* Dark text on hover */
+            transform: scale(1.05);
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -72,8 +110,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block body %}
     <header>
         <h1>About Us</h1>
     </header>
@@ -95,9 +134,53 @@
             health information. Our mission is to make healthcare simple, secure, and accessible for all, prioritizing your well-being in every step.
         </p>
     </section>
-    <footer>
-        &copy; 2025 Your Platform Name. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>
+                        FirstCall is committed to providing exceptional healthcare solutions, ensuring the best
+                        experience for patients and doctors alike.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Healthcare Street, City, Country</p>
+                    <p><i class="fas fa-phone"></i> +1 123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> support@firstcall.com</p>
+                    <button class="btn" data-toggle="modal" data-target="#myModal-feedback">
+                        <i class="fas fa-comment-dots"></i> Give Feedback
+                    </button>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <a href="#" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <small>&copy; 2025 FirstCall. All rights reserved.</small>
+                </div>
+            </div>
+        </div>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sections = document.querySelectorAll('section');
@@ -106,5 +189,4 @@
             });
         });
     </script>
-</body>
-</html>
+{% endblock %}

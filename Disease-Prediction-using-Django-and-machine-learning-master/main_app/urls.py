@@ -1,9 +1,11 @@
 from django.urls import path, re_path
 from . import views
+from .views import get_disease_info
 
 urlpatterns = [
     path("", views.home, name="home"),
-
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
     path('admin_ui', views.admin_ui, name='admin_ui'),
     path('patient_ui', views.patient_ui, name='patient_ui'),
     path('checkdisease', views.checkdisease, name="checkdisease"),
@@ -24,5 +26,7 @@ urlpatterns = [
     path('chat_messages', views.chat_messages, name='chat_messages'),
 
     # New URL for Alternative Drugs
-    path('alternative_drugs', views.alternative_drugs, name='alternative_drugs'),
+    path('alternative_drugs', views.AlternativeDrug, name='alternative_drugs'),
+
+    path('api/disease/<str:disease_name>/', get_disease_info, name='get_disease_info'),
 ]

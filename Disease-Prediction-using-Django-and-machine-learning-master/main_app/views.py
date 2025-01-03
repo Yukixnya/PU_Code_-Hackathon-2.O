@@ -31,9 +31,11 @@ def home(request):
         return render(request,'homepage/index.html')
 
 
-
+def about(request):
+    return render(request, 'about.html')
    
-
+def contact(request):
+    return render(request, 'contact.html')
        
 
 
@@ -500,19 +502,35 @@ from .models import Drug
 
 from .models import Drug,AlternativeDrug
 
-def alternative_drugs(request):
-    if request.method == "POST":
-        drug_name = request.POST.get("drug_name", "").strip()
-        try:
-            drug = Drug.objects.get(name__iexact=drug_name)  # Fetch drug by name (case-insensitive)
-            alternatives = drug.alternatives.all()  # Fetch all alternatives for the drug
-        except Drug.DoesNotExist:
-            drug = None
-            alternatives = None
-        return render(request, "alternative_drugs.html", {
-            "drug_name": drug_name,
-            "alternatives": alternatives,
-        })
-    return render(request, "alternative_drugs.html", {"drug_name": None, "alternatives": None})
+from django.http import JsonResponse
+import requests
+from urllib.parse import quote
 
+def get_disease_info(request, disease_name):
+    """
+    Fetch disease information from Wikipedia's API using the disease name provided in the URL.
+    """
+    # Wikipedia API endpoint
+    url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{disease_name}"
 
+    try:
+        # Make a GET request to the Wikipedia API
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            data = response.json()
+            disease_info = {
+                "title": data.get("title", "Unknown Disease"),
+                "description": data.get("description", "No description available"),
+                "extract": data.get("extract", "No additional information available"),
+                "link": data.get("content_urls", {}).get("desktop", {}).get("page", "")
+            }
+            return JsonResponse(disease_info, status=200)
+        elif response.status_code == 404:
+            return JsonResponse({"error": "Disease not found on Wikipedia."}, status=404)
+        else:
+            return JsonResponse({"error": f"Unexpected response from Wikipedia: {response.status_code}"}, status=500)
+
+    except requests.exceptions.RequestException as e:
+        # Catch exceptions related to the request
+        return JsonResponse({"error": "An error occurred while fetching disease information.", "details": str(e)}, status=500)

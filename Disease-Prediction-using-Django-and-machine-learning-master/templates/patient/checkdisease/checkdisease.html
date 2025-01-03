@@ -7,7 +7,18 @@
     {% block head %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'patient/checkdisease/dps.css' %}">   
- 
+ <style>
+  .dropdown-item:hover{
+    background-color: #1b405a;
+    color: white;
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+  }
+  .dropdown-item{
+    background:none;
+    transition: all 0.3s ease;
+  }
+ </style>
 
 
 <script>
@@ -175,7 +186,7 @@ $("#predict").click(function () {
 
 
 <div class="container">
-      <!-- 
+<!--       
   
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -192,14 +203,14 @@ $("#predict").click(function () {
   <div class="container">
     <br>
     <div class="text-center"> 
-      <h3>
+      <h3 style="font-size: bold; color: #1b405a;">
           Identify possible conditions and treatment related to your symptoms.
       </h3><br>
             <button onclick="Functionshow()" class="btn btn-primary dropdown-toggle">Add symptoms</button>
     </div>
   </div >
 
-  <div id="myDropdown" class="drop-content">
+  <div id="myDropdown" class="drop-content" style="background-color: rgb(0, 0, 0,0.5);">
 
         <div id="searchbardiv" class="searchbardiv">    
       
@@ -249,11 +260,11 @@ $("#predict").click(function () {
         <div class="card" id= "symptoms-box">
     
       {% csrf_token %}
-            <div class="card-header">Symptoms list -</div>
+            <div class="card-header" style="background-color: #1b405a;">Symptoms list -</div>
                     <div class="card-body" id="sympbox" >
                     </div>
                           <br>
-                          <div class="card-footer">
+                          <div class="card-footer" style="background-color: #1b405a;">
                                 <button id="predict" class="btn btn-success">Predict</button>
                           </div>
              </div>
@@ -289,10 +300,25 @@ $("#predict").click(function () {
               </button>
         </div>
           <br><br>
-
+          <div class="text-center mt-4 mb-4">
+            <button id="info-button " class="btn btn-outline-success"  onclick="populateModal()">Know More About 
+                <span id="diseasesearch" style="color: crimson;"></span>
+            </button>
+        </div>
+        
+        <!-- Modal -->
+        <div id="info-modal"  class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-button" onclick="toggleModal()">&times;</span>
+                <h3 id="disease-title">Disease Name</h3>
+                <p id="disease-description">Description</p>
+                <p id="disease-extract">Detailed Information</p>
+                <a id="disease-link" href="#" target="_blank" style="display: none;">Read More</a>
+            </div>
+        </div>
         <div class="text-center">
-          <h4>This tool does not provide medical advice. It is intended for informational purposes only.
-          </h4><h4>It is not a substitute for professional medical advice, diagnosis or treatment. 
+          <h4 style="font-size: bold; color: #ff0000;">This tool does not provide medical advice. It is intended for informational purposes only.
+          </h4><h4 style="font-size: bold; color: #ff0000;">It is not a substitute for professional medical advice, diagnosis or treatment. 
           </h4>
         <br><br>
 

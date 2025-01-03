@@ -193,7 +193,7 @@ img{ max-width:100%;}
 
 
 
-<br><center><h2> Consultation</h2>
+<br><center><h2 style="font-weight: bold; color: #1b405a;"> Consultation</h2>
 </center>
 <br>
 
@@ -266,15 +266,15 @@ img{ max-width:100%;}
 
 
 
-    <div class="card mt-5 ml-5 mr-5 mb-5">
+    <div class="card mt-5 ml-5 mr-5 mb-5" style="background-color: rgba(0, 0, 0, 0.3);">
                    
         <div class="card-body">
-          <h4 class="card-title">Predicted disease : {{consultation.diseaseinfo.diseasename}}</h4>
+          <h4 class="card-title" style="font-weight: bold;">Predicted disease : {{consultation.diseaseinfo.diseasename}}</h4>
           <p class="card-text">list of symptoms - 
 
-              <ul class="list-group" >
+              <ul class="list-group" style="font-weight: bold;">
                 {% for i in consultation.diseaseinfo.symptomsname %}
-                <li class="list-group-item" style="background-color:aliceblue">{{i}}</li>
+                <li class="list-group-item" style="background-color:rgba(255, 0, 0, 0.308)">{{i}}</li>
                 {% endfor %}
               </ul>
         
@@ -284,7 +284,7 @@ img{ max-width:100%;}
           <p class="card-text">Patient age - {{consultation.patient.age}}</p>
 
           <p class="card-text">Consultation date - {{consultation.consultation_date}}</p>
-          <p class="card-text" style="color: green;">Consultation status - {{consultation.status}}</p>
+          <p class="card-text" style="color: green;font-weight: bold;">Consultation status - {{consultation.status}}</p>
         </div>
     </div>
 
@@ -295,12 +295,12 @@ img{ max-width:100%;}
 
 
                 
-                            <div class="card mt-5 ml-5 mr-5 mb-5" >
+                            <div class="card mt-5 ml-5 mr-5 mb-5" style="background-color: rgba(0, 0, 0, 0.3);">
                                 <div class="text-center " style="width:100px">
                                     <img class="card-img-top " src="{% static 'homepage/patient.png' %}" alt="Card image" style="width:100%;">
                                 </div>
                                 <div class="card-body">
-                                  <h4 class="card-title">Patient name : {{consultation.patient.name}}</h4>
+                                  <h4 class="card-title" style="font-weight: bold;">Patient name : {{consultation.patient.name}}</h4>
                                   <p class="card-text">Patient ID - {{consultation.patient.user_id}}</p>
                                   <p class="card-text">Patient email - {{consultation.patient.user.email}}</p>
                                   <p class="card-text">patient phone no. - {{consultation.patient.mobile_no}}</p>
@@ -309,12 +309,12 @@ img{ max-width:100%;}
                             </div>
                 
                        
-                                <div class="card mt-5 ml-5 mr-5 mb-5" >
+                                <div class="card mt-5 ml-5 mr-5 mb-5" style="background-color: rgba(0, 0, 0, 0.3);">
                                         <div class="text-center " style="width:100px">
                                             <img class="card-img-top" src="{% static 'homepage/doctor.png' %}" alt="Card image" style="width:100%;">
                                         </div>
                                         <div class="card-body" style="display: inline-block;">
-                                          <h4 class="card-title">Doctor name : {{consultation.doctor.name}}</h4>
+                                          <h4 class="card-title" style="font-weight: bold;">Doctor name : {{consultation.doctor.name}}</h4>
                                           <p class="card-text">Doctor ID - {{consultation.doctor.user_id}}</p>
                                           <p class="card-text">Doctor email - {{consultation.doctor.user.email}}</p>
                                           <p class="card-text">Doctor phone no. - {{consultation.doctor.mobile_no}}</p>
